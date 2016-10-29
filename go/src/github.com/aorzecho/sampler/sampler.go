@@ -25,7 +25,8 @@ func main() {
 	r := rand.New(rand.NewSource(99))
 	reader := bufio.NewReader(os.Stdin)
 	idx := sampleSize
-	for chr, err := reader.ReadByte(); err != io.EOF; idx++ {
+	for chr, err := reader.ReadByte(); err != io.EOF; {
+		idx++
 		j := r.Intn(idx)
 		if j < sampleSize {
 			reservoir[j] = chr

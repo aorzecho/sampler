@@ -9,5 +9,5 @@ target:
 clean:
 	mvn clean
 
-test:
+test: target
 	mvn test
