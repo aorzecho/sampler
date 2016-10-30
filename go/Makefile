@@ -12,7 +12,7 @@ bin/sampler:
 
 clean:
 	go clean ./...
-	-rm $(GOBIN)/sampler
+	-rm "$(GOBIN)/sampler"
 
 test:
 	go test ./...

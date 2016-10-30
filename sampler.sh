@@ -1,4 +1,8 @@
 #!/bin/sh
+# An entrypoint script for running different implementations of the sampler
+# @author aorzecho (2016)
+
+DIR=$(cd "$(dirname "$0")"; pwd)
 
 fail () {
   echo "$@" >&2
@@ -6,8 +10,7 @@ fail () {
 }
 
 help () {
-  #local me=$(basename $0)
-  local me=$0
+  local me="$0"
   echo "" >&2
   echo "Stream sampler generating random representative sample of given size" >&2
   echo "The script reads/writes standard in/out" >&2
@@ -45,14 +48,21 @@ SAMPLE_SIZE=${1:-0}
 
 case $ENGINE in
   java)
-    CMD="java -jar java/target/Sampler-1.0-SNAPSHOT.jar"
+    BIN="$DIR/java/target/Sampler-1.0-SNAPSHOT.jar"
+    VM="java -jar"
     ;;
   go)
-    CMD="./go/bin/sampler"
+    BIN="$DIR/go/bin/sampler"
+	VM=""
     ;;
   *)
     fail "Engine \"${ENGINE}\" not yet implemented..."
 esac
 
+[ -f "$BIN" ] || fail "Binary file ($BIN) not found - please build the $ENGINE implementation first!"
+
 export TIME="Maximum allocated memory during runtime: %MkB\nCPU: real %e  user %U  sys %S"
-time "$CMD" "$SAMPLE_SIZE"
+
+#the VM should not be quoted not to act as the first arg to time if empty
+#shellcheck disable=SC2086
+time $VM "$BIN" "$SAMPLE_SIZE"
