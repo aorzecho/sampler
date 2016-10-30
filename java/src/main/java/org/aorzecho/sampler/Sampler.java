@@ -32,7 +32,7 @@ import java.util.logging.Logger;
  * distributed, alternatively use {@link java.security.SecureRandom} with possibly
  * much worse performance.
  * <li>the implementation is single threaded thus for fast streams cpu becomes
- * the bottleneck
+ * the bottleneck, TODO: implement multithreaded sampler, with nio
  * <p>
  * The implementation is not thread safe.
  * 

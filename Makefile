@@ -6,6 +6,8 @@ test_ENGINES=$(addprefix test_,$(ENGINES))
 build: $(ENGINES)
 clean: $(clean_ENGINES)
 test: $(test_ENGINES)
+	shellcheck *.sh
+
 all: build test
 
 $(ENGINES):
