@@ -17,8 +17,8 @@ import org.junit.runners.Parameterized.Parameters;
 /**
  * This test uses simple heuristics (TEST_LOOPS,ERR_RANGE) to verify expected 
  * samples. Should be enough to detect serious flaws and not fail too often with
- * false positives, but TODO: calculate proper values and prove corectness
- * for expected ranges/acuracy.
+ * false positives, but TODO: calculate proper values and prove correctness
+ * for expected ranges/accuracy.
  * 
  * @author aorzecho
  */
@@ -68,6 +68,12 @@ public class SamplerProbabilityTest extends BaseSamplerTest {
                     .probabilityOf('c', 0.25)
                     .probabilityOf('d', 0.25)
             },
+            {TestCase.withInput("aaaaabbbbbccccc", "ddddd").sampleSize(3)
+                    .probabilityOf('a', 0.25)
+                    .probabilityOf('b', 0.25)
+                    .probabilityOf('c', 0.25)
+                    .probabilityOf('d', 0.25)
+            },
         });
     }
     
@@ -82,7 +88,10 @@ public class SamplerProbabilityTest extends BaseSamplerTest {
         double total = testCase.sampleSize * TEST_LOOPS;
         
         for (int i = 0; i<TEST_LOOPS; i++) {
-            for (Byte b : Sampler.withSampleSize(testCase.sampleSize).sampleStream(withContent(testCase.input)).getSample()) {
+            Sampler sampler = Sampler.withSampleSize(testCase.sampleSize);
+            for (String input : testCase.inputs)
+                sampler.sampleStream(withContent(input));
+            for (Byte b : sampler.getSample()) {
                 AtomicInteger c = counters.get((char) b.byteValue()); //single byte characters only!
                 if (c != null)
                     c.incrementAndGet();
@@ -97,13 +106,13 @@ public class SamplerProbabilityTest extends BaseSamplerTest {
     
     
     public static class TestCase {
-        String input;
+        String[] inputs;
         int sampleSize;
         Map<Character, Double> expectedProbabilities = new TreeMap<>();
 
-        static TestCase withInput(String input) {
+        static TestCase withInput(String ... inputs) {
             TestCase tc = new TestCase();
-            tc.input=input;
+            tc.inputs=inputs;
             return tc;
         }
         
@@ -119,7 +128,7 @@ public class SamplerProbabilityTest extends BaseSamplerTest {
 
         @Override
         public String toString() {
-            return "sample " + sampleSize + " from '" + input + "'";
+            return "sample " + sampleSize + " from '" + Arrays.toString(inputs) + "'";
         }
         
     }
