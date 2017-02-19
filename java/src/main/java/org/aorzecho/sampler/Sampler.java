@@ -68,7 +68,8 @@ public class Sampler {
             in = new BufferedInputStream(in, bufferSize);
         }
 
-        streamIndex = in.read(reservoir);
+        if (streamIndex < sampleSize)
+                streamIndex = Math.max(0L, in.read(reservoir, (int)streamIndex, sampleSize - (int)streamIndex));
 
         for (int next = in.read(); next >= 0; next = in.read()) {
             streamIndex++;
