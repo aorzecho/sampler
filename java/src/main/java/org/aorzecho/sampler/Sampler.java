@@ -99,7 +99,7 @@ public class Sampler {
 
     public static void main(String[] args) throws IOException {
         int sampleSize = Integer.parseInt(args[0]);
-        System.out.printf("Random Sample: %s%n",
+        System.out.println(
                 new String(
                         Sampler.withSampleSize(sampleSize)
                         .sampleStream(System.in)

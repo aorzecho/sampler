@@ -1,18 +1,12 @@
-PKG="github.com/aorzecho/sampler"
-GOBIN=${CURDIR}/bin
-GOPATH:=${CURDIR}:${GOPATH}
+BUILD_DIR ?= _out
 
-default: build
-all: fetch build test
-
-build: bin/sampler
-
-bin/sampler:
-	go install ./...
+build:
+	mkdir -p "$(BUILD_DIR)"
+	go build -o "$(BUILD_DIR)" ./...
 
 clean:
 	go clean ./...
-	-rm "$(GOBIN)/sampler"
+	rm -r "$(BUILD_DIR)"
 
 test:
-	go test ./...
+	go test -v ./... 

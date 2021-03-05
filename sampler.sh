@@ -52,7 +52,7 @@ case $ENGINE in
     VM="java -jar"
     ;;
   go)
-    BIN="$DIR/go/bin/sampler"
+    BIN="$DIR/go/sampler"
 	VM=""
     ;;
   *)
