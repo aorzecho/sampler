@@ -2,3 +2,5 @@
 .idea/
 Sampler.iml
 .vscode
+*.swp
+target/

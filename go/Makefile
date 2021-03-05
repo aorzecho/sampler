@@ -1,4 +1,4 @@
-BUILD_DIR ?= _out
+BUILD_DIR ?= target
 
 build:
 	mkdir -p "$(BUILD_DIR)"
@@ -6,7 +6,7 @@ build:
 
 clean:
 	go clean ./...
-	rm -r "$(BUILD_DIR)"
+	-rm -r "$(BUILD_DIR)"
 
 test:
 	go test -v ./... 

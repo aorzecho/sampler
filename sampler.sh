@@ -2,7 +2,7 @@
 # An entrypoint script for running different implementations of the sampler
 # @author aorzecho (2016)
 
-DIR=$(cd "$(dirname "$0")"; pwd)
+DIR=$(cd "$(dirname "$0")" && pwd)
 
 fail () {
   echo "$@" >&2
@@ -10,7 +10,7 @@ fail () {
 }
 
 help () {
-  local me="$0"
+  me="$0"
   echo "" >&2
   echo "Stream sampler generating random representative sample of given size" >&2
   echo "The script reads/writes standard in/out" >&2
@@ -46,14 +46,16 @@ ENGINE=${ENGINE:=java}
 SAMPLE_SIZE=${1:-0}
 [ "$SAMPLE_SIZE" -gt 0 ] || help
 
+BIN="$DIR/$ENGINE/target/sampler"
+VM=""
+
 case $ENGINE in
   java)
-    BIN="$DIR/java/target/Sampler-1.0-SNAPSHOT.jar"
+    BIN="$DIR/$ENGINE/target/Sampler-1.0-SNAPSHOT.jar"
     VM="java -jar"
     ;;
   go)
-    BIN="$DIR/go/sampler"
-	VM=""
+    ## just defaults
     ;;
   *)
     fail "Engine \"${ENGINE}\" not yet implemented..."
