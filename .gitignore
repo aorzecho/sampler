@@ -4,3 +4,5 @@ Sampler.iml
 .vscode
 *.swp
 target/
+perf.data
+perf.data.*

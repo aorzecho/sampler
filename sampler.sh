@@ -20,7 +20,7 @@ help () {
   echo "$me <sample size>" >&2
   echo "" >&2
   echo "Configuration (environment variables):" >&2
-  echo "  ENGINE          - which engine to use (java|go), default is java" >&2
+  echo "  ENGINE          - which engine to use (java|go|rust), default is java" >&2
   echo "  S_BUFFER_SIZE   - the size of stream reader buffer, used to improve throughput, default 1024, set 0 to disable" >&2
   echo "" >&2
   echo "Examples:" >&2
@@ -54,7 +54,7 @@ case $ENGINE in
     BIN="$DIR/$ENGINE/target/Sampler-1.0-SNAPSHOT.jar"
     VM="java -jar"
     ;;
-  go)
+  go|rust)
     ## just defaults
     ;;
   *)

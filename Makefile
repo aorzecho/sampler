@@ -1,4 +1,4 @@
-ENGINES := java go
+ENGINES := java go rust
 clean_ENGINES=$(addprefix clean_,$(ENGINES))
 test_ENGINES=$(addprefix test_,$(ENGINES))
 .PHONY: default $(ENGINES) $(clean_ENGINES) $(test_ENGINES)
