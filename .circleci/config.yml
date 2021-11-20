@@ -11,6 +11,9 @@ jobs:
       - run:
           name: Build
           command: make -C java clean build
+      - run:
+          name: Test
+          command: make -C java test
   build-and-test-go:
     docker:
       - image: cimg/go:1.17.3
@@ -19,6 +22,9 @@ jobs:
       - run:
           name: Build
           command: make -C go clean build
+      - run:
+          name: Test
+          command: make -C go test
 
 workflows:
   build-all:

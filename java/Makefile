@@ -4,7 +4,7 @@ default: build
 build: target
 
 target:
-	mvn package
+	mvn package -DskipTests
 
 clean:
 	mvn clean
