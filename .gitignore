@@ -1,6 +1,8 @@
 /java/nbproject/
 .idea/
 Sampler.iml
+Why_*
+target
 .vscode
 *.swp
 target/
